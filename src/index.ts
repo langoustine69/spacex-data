@@ -384,6 +384,31 @@ addEntrypoint({
   },
 });
 
+// === Icon endpoint ===
+app.get('/icon.png', async (c) => {
+  // Return a simple SVG icon as image
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a0a1a"/>
+      <stop offset="100%" style="stop-color:#1a1a3a"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="64" fill="url(#bg)"/>
+  <path d="M256 80 L290 200 L290 350 L270 400 L242 400 L222 350 L222 200 Z" fill="#ffffff"/>
+  <path d="M256 60 L280 120 L232 120 Z" fill="#ff6b35"/>
+  <path d="M222 320 L180 400 L222 380 Z" fill="#ff6b35"/>
+  <path d="M290 320 L332 400 L290 380 Z" fill="#ff6b35"/>
+  <ellipse cx="256" cy="420" rx="25" ry="40" fill="#ff9500" opacity="0.9"/>
+  <ellipse cx="256" cy="256" rx="180" ry="60" fill="none" stroke="#4dabf7" stroke-width="2" opacity="0.6" transform="rotate(-20 256 256)"/>
+  <circle cx="100" cy="220" r="6" fill="#4dabf7"/>
+  <circle cx="420" cy="280" r="6" fill="#4dabf7"/>
+</svg>`;
+  return new Response(svg, {
+    headers: { 'Content-Type': 'image/svg+xml' }
+  });
+});
+
 // === ERC-8004 Registration ===
 app.get('/.well-known/erc8004.json', (c) => {
   const baseUrl = process.env.BASE_URL || 'https://spacex-data-production.up.railway.app';
